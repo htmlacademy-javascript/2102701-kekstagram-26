@@ -1,10 +1,20 @@
 const getRandomNumber = function(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  if (min<max){
-    console.log(Math.floor(Math.random() * (max - min + 1)) + min);
-  } else {
-    console.log('число '+ min +' больше или равно числа '+ max);
+  const minimum = Math.ceil(Math.min(min, max));
+  const maximum = Math.floor(Math.max(min, max));
+  const result = Math.abs(Math.floor(Math.random() * (maximum - minimum + 1)) + minimum);
+  if (typeof result!=='number'|| isNaN(result)){
+    return "Ошибка";
   }
-};
+  return result;
+}
+
 getRandomNumber(10, 20);
+
+
+const getStrLength = function(string, maxLength) {
+  if (typeof string !=='string'){
+      return 'Ошибка';
+  }
+  return string.length<maxLength;
+};
+getStrLength('Vfrcbv', 140);
