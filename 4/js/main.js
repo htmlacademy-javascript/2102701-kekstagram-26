@@ -24,6 +24,14 @@ const getRandomArrayElement = function(elements) {
 };
 
 
+const DESCRIPTIONS = [
+  'Оисание 1',
+  'Описание 2',
+  'Описание 3',
+  'Описание 4',
+  'Описание 5'
+];
+
 const COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -42,11 +50,36 @@ const NAMES = [
   'Серёжа'
 ];
 
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
 
+    // поменять элементы местами
+    // мы используем для этого синтаксис "деструктурирующее присваивание"
+    // подробнее о нём - в следующих главах
+    // то же самое можно записать как:
+    // let t = array[i]; array[i] = array[j]; array[j] = t
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+};
+const PHOTOS_COUNT = 25;
+const PHOTO_COMMENT_MAX_COUNT = 3;
+const urls=Array.from({length: PHOTOS_COUNT}, (i, index)=>index+1);
+shuffle(urls);
+
+const usedCommentId = [];
+const getNextCommentId = () => {
+  let number = 1;
+  while(usedCommentId.includes(number)){
+    number = getRandomNumber(0, PHOTOS_COUNT*PHOTO_COMMENT_MAX_COUNT);
+  }
+  usedCommentId.push(number);
+  return number;
+};
 const createRandomComment = function () {
   return {
-    id: getRandomNumber(1, 1000),
-    avatar: 'img/avatar-'+getRandomNumber(1, 6)+'.svg',
+    id: getNextCommentId(),
+    avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
     comment: getRandomArrayElement(COMMENTS),
     name: getRandomArrayElement(NAMES)
   };
@@ -55,12 +88,13 @@ const createRandomComment = function () {
 const createPhotoDescription = function (_value, index) {
   return {
     id: index+1,
-    url: 'photos/' + (index+1) + '.jpg',
-    description: 'lsdugliauerhbljav',
+    url: `photos/${urls.shift()}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomNumber(15, 200),
-    comment: createRandomComment(),
+    comments: Array.from({length: getRandomNumber(1, PHOTO_COMMENT_MAX_COUNT)}, createRandomComment)
   };
 };
 
-const similarDescription = Array.from(({length: 25}), createPhotoDescription);
+const similarDescription = Array.from(({length: PHOTOS_COUNT}), createPhotoDescription);
+
 
