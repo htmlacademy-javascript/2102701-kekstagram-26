@@ -1,3 +1,4 @@
 import './util.js';
-import './data.js';
+import {getSimilarDescriptions} from './data.js';
 
+console.log(getSimilarDescriptions());
