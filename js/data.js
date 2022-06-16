@@ -1,4 +1,4 @@
-import {getRandomArrayElement, getRandomNumber, getStrLength} from './util';
+import {getRandomArrayElement, getRandomNumber, getStrLength} from './util.js';
 
 const DESCRIPTIONS = [
   'Оисание 1',
@@ -38,12 +38,15 @@ const shuffle = (array) => {
     [array[i], array[j]] = [array[j], array[i]];
   }
 };
+
+
 const PHOTOS_COUNT = 25;
 const PHOTO_COMMENT_MAX_COUNT = 3;
 const urls=Array.from({length: PHOTOS_COUNT}, (i, index)=>index+1);
 shuffle(urls);
 
 const usedCommentId = [];
+
 const getNextCommentId = () => {
   let number = 1;
   while(usedCommentId.includes(number)){
@@ -71,4 +74,10 @@ const createPhotoDescription = function (_value, index) {
   };
 };
 
-const similarDescription = Array.from(({length: PHOTOS_COUNT}), createPhotoDescription);
+//const similarDescription = Array.from(({length: PHOTOS_COUNT}), createPhotoDescription);
+
+const getSimilarDescriptions = function () {
+  return Array.from(({length: PHOTOS_COUNT}), createPhotoDescription);
+};
+
+export {getSimilarDescriptions};
