@@ -1,4 +1,4 @@
-import {getRandomArrayElement, getRandomNumber, getStrLength} from './util.js';
+import {getRandomArrayElement, getRandomNumber} from './util.js';
 
 const DESCRIPTIONS = [
   'Оисание 1',

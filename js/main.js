@@ -1,4 +1,4 @@
 import './util.js';
-import {getSimilarDescriptions} from './data.js';
+import './miniature.js';
 
-console.log(getSimilarDescriptions());
+
