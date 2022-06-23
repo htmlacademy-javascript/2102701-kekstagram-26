@@ -8,8 +8,6 @@ const getRandomNumber = function(min, max) {
   return result;
 };
 
-getRandomNumber(1, 25);
-
 
 const getStrLength = function(string, maxLength) {
   if (typeof string !=='string'){
@@ -17,11 +15,10 @@ const getStrLength = function(string, maxLength) {
   }
   return string.length<maxLength;
 };
-getStrLength('Vfrcbv', 140);
 
 const getRandomArrayElement = function(elements) {
   return elements[getRandomNumber(0, elements.length-1)];
 };
 
 
-export {getRandomArrayElement, getRandomNumber, getStrLength};
+export {getRandomArrayElement, getRandomNumber};
