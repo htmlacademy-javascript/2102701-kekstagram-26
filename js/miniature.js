@@ -1,4 +1,5 @@
 import {getSimilarDescriptions} from './data.js';
+import {showBigPicture} from './big-picture.js';
 
 const miniaturesContainer = document.querySelector('.pictures');
 
@@ -13,7 +14,12 @@ similarDescriptions.forEach((description) => {
   miniaturesElement.querySelector('.picture__img').src = description.url;
   miniaturesElement.querySelector('.picture__comments').textContent = description.comments.length;
   miniaturesElement.querySelector('.picture__likes').textContent = description.likes;
+  miniaturesElement.addEventListener('click', () => {
+    showBigPicture(description);
+  });
   similarDescriptionFragment.appendChild(miniaturesElement);
 });
 
 miniaturesContainer.appendChild(similarDescriptionFragment);
+
+
