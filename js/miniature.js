@@ -2,13 +2,10 @@ import {getSimilarDescriptions} from './data.js';
 import {showBigPicture} from './big-picture.js';
 
 const miniaturesContainer = document.querySelector('.pictures');
-
 const miniaturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
-
 const similarDescriptions = getSimilarDescriptions();
-
 const similarDescriptionFragment = document.createDocumentFragment();
+
 similarDescriptions.forEach((description) => {
   const miniaturesElement = miniaturesTemplate.cloneNode(true);
   miniaturesElement.querySelector('.picture__img').src = description.url;
