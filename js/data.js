@@ -28,20 +28,14 @@ const NAMES = [
 
 const shuffle = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
-
-    // поменять элементы местами
-    // мы используем для этого синтаксис "деструктурирующее присваивание"
-    // подробнее о нём - в следующих главах
-    // то же самое можно записать как:
-    // let t = array[i]; array[i] = array[j]; array[j] = t
+    const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
 };
 
 
 const PHOTOS_COUNT = 25;
-const PHOTO_COMMENT_MAX_COUNT = 3;
+const PHOTO_COMMENT_MAX_COUNT = 5;
 const urls=Array.from({length: PHOTOS_COUNT}, (i, index)=>index+1);
 shuffle(urls);
 
@@ -74,7 +68,6 @@ const createPhotoDescription = function (_value, index) {
   };
 };
 
-//const similarDescription = Array.from(({length: PHOTOS_COUNT}), createPhotoDescription);
 
 const getSimilarDescriptions = function () {
   return Array.from(({length: PHOTOS_COUNT}), createPhotoDescription);

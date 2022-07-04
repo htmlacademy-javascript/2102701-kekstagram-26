@@ -21,8 +21,6 @@ const addComments = function (comments) {
   socialComments.appendChild(commentsFragment);
 };
 
-
-
 const close = function () {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -41,11 +39,13 @@ const showBigPicture = function (description) {
   clearComments();
   addComments(description.comments);
   bigPicture.classList.remove('hidden');
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  //socialCommentCount.classList.add('hidden');
+  //commentsLoader.classList.add('hidden');
   document.body.classList.add('modal-open');
   bigPicture.querySelector('.big-picture__img img').src = description.url;
   bigPicture.querySelector('.likes-count').textContent = description.likes;
   bigPicture.querySelector('.social__caption').textContent = description.description;
 };
+
+
 export {showBigPicture};
