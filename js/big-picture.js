@@ -1,3 +1,5 @@
+import {initModal} from './modal.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
@@ -21,31 +23,15 @@ const addComments = function (comments) {
   socialComments.appendChild(commentsFragment);
 };
 
-const close = function () {
-  bigPicture.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-};
-const buttonCLose = bigPicture.querySelector('.big-picture__cancel');
-buttonCLose.addEventListener('click', close);
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.keyCode === 27) {
-    close();
-  }
-});
-
+const {open} = initModal(bigPicture);
 
 const showBigPicture = function (description) {
   clearComments();
   addComments(description.comments);
-  bigPicture.classList.remove('hidden');
-  //socialCommentCount.classList.add('hidden');
-  //commentsLoader.classList.add('hidden');
-  document.body.classList.add('modal-open');
+  open();
   bigPicture.querySelector('.big-picture__img img').src = description.url;
   bigPicture.querySelector('.likes-count').textContent = description.likes;
   bigPicture.querySelector('.social__caption').textContent = description.description;
 };
-
 
 export {showBigPicture};
