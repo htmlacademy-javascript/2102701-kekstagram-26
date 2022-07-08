@@ -14,7 +14,8 @@ const textComment = document.querySelector('.text__description');
 const regexp = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
 const {open} = initModal(uploadOverlay, {
-  onClose:()=>{inputFile.value = '';
+  onClose:()=>{
+    inputFile.value = '';
     inputHT.textContent = '';
     textComment.textContent = '';
   }
@@ -35,7 +36,7 @@ const validateHashTags = function (value) {
 
   tags.forEach((value) => {
     if (!regexp.test(value)) {
-      validateHashTagMessages.push(`таг ${value} содердит недопустимые символы или длина больше 20 символов`);
+      validateHashTagMessages.push(`тэг ${value} содержит недопустимые символы или длина больше 20 символов`);
     }
     if (usedTags.includes(value.toLowerCase())) {
       validateHashTagMessages.push(`тэг ${value} повторяется`);
