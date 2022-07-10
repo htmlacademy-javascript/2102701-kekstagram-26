@@ -1,16 +1,23 @@
 const scaleElement = document.querySelector('.scale');
-const upScaleElement = scaleElement.querySelector('.scale__control--bigger');
-const downScaleElement = scaleElement.querySelector('.scale__control--smaller');
 const scaleValueElement = scaleElement.querySelector('.scale__control--value');
+const step = 25;
+const maxValue = 100;
+const minValue = 25;
 
-upScaleElement.addEventListener('click', (evt) => {
-  const step = 25;
-  scaleValueElement.value = 0;
-  const maxValue = 100;
-  while (Number(scaleValueElement.value) < maxValue) {
-    scaleValueElement.value += step;
-    return scaleValueElement.value;
+const imgPreview = document.querySelector('.img-upload__preview');
+
+const changeSize = function () {
+  imgPreview.style.transform = `scale(${scaleValueElement.value})`
+};
+changeSize();
+scaleElement.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('scale__control--bigger')) {
+    scaleValueElement.value = `${Math.min(Number(scaleValueElement.value.split('%').shift()) + step, maxValue)}%`;
   }
+  if (evt.target.classList.contains('scale__control--smaller')) {
+    scaleValueElement.value = `${Math.max(Number(scaleValueElement.value.split('%').shift()) - step, minValue)}%`;
+  }
+  changeSize();
 });
 
-console.log(Number(scaleValueElement.value));
+

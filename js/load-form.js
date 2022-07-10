@@ -1,3 +1,4 @@
+import { deleteEffect } from './filter.js';
 import {initModal} from './modal.js';
 
 const imgUploadForm = document.querySelector('#upload-select-image');
@@ -18,6 +19,7 @@ const {open} = initModal(uploadOverlay, {
     inputFile.value = '';
     inputHT.textContent = '';
     textComment.textContent = '';
+    deleteEffect();
   }
 });
 

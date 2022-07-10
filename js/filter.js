@@ -2,16 +2,11 @@
 const imgPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 
-const defaultEffect = effectsList.querySelector('#effect-none');
-const chrome = effectsList.querySelector('#effect-chrome');
-const sepia = effectsList.querySelector('#effect-sepia');
-const marvin = effectsList.querySelector('#effect-marvin');
-const phobos = effectsList.querySelector('#effect-phobos');
-const heat = effectsList.querySelector('#effect-heat');
-
 const sliderElement = document.querySelector('.effect-level__slider');
 const valueElement = document.querySelector('.effect-level__value');
 valueElement.value = 100;
+
+const buttonEffects = document.querySelectorAll('.effects__radio');
 
 noUiSlider.create(sliderElement, {
   range: {
@@ -23,86 +18,68 @@ noUiSlider.create(sliderElement, {
   connect: 'lower'
 });
 
-
-const changeEffect = function (evt) {
-  imgPreview.classList.add('effect-none');
-  sliderElement.classList.add('hidden');
-  if (chrome.checked) {
-    imgPreview.classList.remove('effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--phobos', 'effects__preview--heat', 'effects__preview--none');
-    imgPreview.classList.add('effects__preview--chrome');
-    sliderElement.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1
-      },
-      start: 1,
-      step: 0.1,
-      connect: 'lower'
-    });
-  }
-  if (sepia.checked) {
-    imgPreview.classList.remove('effects__preview--chrome', 'effects__preview--none', 'effects__preview--marvin', 'effects__preview--phobos', 'effects__preview--heat');
-    imgPreview.classList.add('effects__preview--sepia');
-    sliderElement.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1
-      },
-      start: 1,
-      step: 0.1,
-      connect: 'lower'
-    });
-  }
-  if (marvin.checked) {
-    imgPreview.classList.remove('effects__preview--chrome', 'effects__preview--none', 'effects__preview--sepia', 'effects__preview--phobos', 'effects__preview--heat');
-    imgPreview.classList.add('effects__preview--marvin');
-    sliderElement.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 100
-      },
-      start: 100,
-      step: 1,
-      connect: 'lower'
-    });
-  }
-  if (phobos.checked) {
-    imgPreview.classList.remove('effects__preview--chrome', 'effects__preview--none', 'effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--heat');
-    imgPreview.classList.add('effects__preview--phobos');
-    sliderElement.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 3
-      },
-      start: 3,
-      step: 0.1,
-      connect: 'lower'
-    });
-  }
-  if (heat.checked) {
-    imgPreview.classList.remove('effects__preview--chrome', 'effects__preview--none', 'effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--phobos');
-    imgPreview.classList.add('effects__preview--heat');
-    sliderElement.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 1,
-        max: 3
-      },
-      start: 3,
-      step: 0.1,
-      connect: 'lower'
-    });
-  }
-  if (defaultEffect.checked) {
-    imgPreview.classList.remove('effects__preview--chrome', 'effects__preview--heat', 'effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--phobos');
-    imgPreview.classList.add('effects__preview--none');
-    sliderElement.classList.add('hidden');
+const EFFECTS = {
+  chrome: {
+    effect: {filter: 'grayscale'},
+    slider: {min: 0, max: 1, start: 1, step: 0.1}
+  },
+  sepia: {
+    effect: {filter: 'sepia'},
+    slider: {min: 0, max: 1, start: 1, step: 0.1}
+  },
+  marvin: {
+    effect: {filter: 'invert', unit: '%'},
+    slider: {min: 0, max: 100, start: 100, step: 1}
+  },
+  phobos: {
+    effect: {filter: 'blur', unit: 'px'},
+    slider: {min: 0, max: 3, start: 3, step: 0.1}
+  },
+  heat: {
+    effect: {filter: 'brightness'},
+    slider: {min: 1, max: 3, start: 3, step: 0.1}
   }
 };
 
+let currentEffect = 'none';
+
+const deleteEffect = function () {
+  sliderElement.parentElement.classList.add('hidden');
+  imgPreview.style.filter = '';
+  currentEffect = 'none';
+  buttonEffects.forEach((buttonEffect, index) => {
+    buttonEffect.checked = index === 0;
+  });
+};
+
+
+const changeEffect = function (evt) {
+  const currentEffectKey = evt.target.id.split('-').pop();
+  if (currentEffectKey in EFFECTS) {
+    currentEffect = EFFECTS[currentEffectKey];
+    sliderElement.parentElement.classList.remove('hidden');
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: currentEffect.slider.min,
+        max: currentEffect.slider.max
+      },
+      start: currentEffect.slider.start,
+      step: currentEffect.slider.step,
+      connect: 'lower'
+    });
+  } else {
+    deleteEffect();
+  }
+};
+
+deleteEffect();
+sliderElement.noUiSlider.on('change', (value) => {
+  if (currentEffect) {
+    imgPreview.style.filter = `${currentEffect.effect.filter}(${value[0]}${currentEffect.effect.unit || ''})` ;
+  }
+
+});
 
 effectsList.addEventListener('change', changeEffect);
+
+export {deleteEffect};
