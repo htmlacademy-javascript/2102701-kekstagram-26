@@ -1,5 +1,7 @@
 import { deleteEffect } from './filter.js';
+import { showError } from './error.js';
 import {initModal} from './modal.js';
+import { showSuccess } from './success.js';
 
 const imgUploadForm = document.querySelector('#upload-select-image');
 imgUploadForm.setAttribute('action', 'https://26.javascript.pages.academy/kekstagram');
@@ -14,11 +16,11 @@ const textComment = document.querySelector('.text__description');
 
 const regexp = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
-const {open} = initModal(uploadOverlay, {
+const {open, close} = initModal(uploadOverlay, {
   onClose:()=>{
     inputFile.value = '';
-    inputHT.textContent = '';
-    textComment.textContent = '';
+    inputHT.value = '';
+    textComment.value = '';
     deleteEffect();
   }
 });
@@ -57,11 +59,26 @@ const validateComments = function (value) {
   return value.length <= 140;
 };
 pristine.addValidator(inputHT, validateHashTags, showValidatedHashTagsMessages);
-pristine.addValidator(textComment, validateComments, 'gnxdfbdrsb');
+pristine.addValidator(textComment, validateComments, 'Длина комментария не должна быть больше 140 символов');
 
 imgUploadForm.addEventListener('submit', (evt) => {
-  if (!pristine.validate()){
-    evt.preventDefault();
+  evt.preventDefault();
+  if (pristine.validate()){
+    const formData = new FormData(evt.target);
+
+    fetch(
+      'https://26.javascript.pages.academy/kekstagram',
+      {
+        method: 'POST',
+        body: formData,
+      }
+    ).then((response)=>{
+      if (!response.ok) {
+        throw new Error ();
+      }
+      close();
+      showSuccess();
+    }).catch(showError);
   }
 });
 

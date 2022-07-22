@@ -1,20 +1,23 @@
-const initModal = function (element, {onClose} = {}) {
-  const close = function () {
+const initModal = function (element, {onClose, capture = false, buttonSelector = '.cancel'} = {}) {
+  const close = function (evt) {
     element.classList.add('hidden');
     document.body.classList.remove('modal-open');
-    document.removeEventListener('keydown', closeEscHandler);
+    document.removeEventListener('keydown', closeEscHandler, capture);
     if (onClose) {
-      onClose();
+      onClose(evt);
     }
   };
-  const buttonCLose = element.querySelector('.cancel');
-  buttonCLose.addEventListener('click', close);
+  const buttonCLose = element.querySelector(buttonSelector);
+  console.log(buttonCLose, buttonSelector);
+  if (buttonCLose) {
+    buttonCLose.addEventListener('click', close);
+  }
   const addCloseEscHandler = function () {
-    document.addEventListener('keydown', closeEscHandler);
+    document.addEventListener('keydown', closeEscHandler, capture);
   };
   function closeEscHandler (evt) {
     if (evt.keyCode === 27) {
-      close();
+      close(evt);
     }
 
   }
@@ -26,3 +29,4 @@ const initModal = function (element, {onClose} = {}) {
   return {open, close};
 };
 export {initModal};
+
