@@ -69,8 +69,8 @@ const createPhotoDescription = function (_value, index) {
 };
 
 
-const getSimilarDescriptions = function () {
+/*const getSimilarDescriptions = function () {
   return Array.from(({length: PHOTOS_COUNT}), createPhotoDescription);
-};
+};*/
 
-export {getSimilarDescriptions};
+//export {getSimilarDescriptions};

@@ -1,4 +1,3 @@
-
 const imgPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 
@@ -52,6 +51,12 @@ const deleteEffect = function () {
   });
 };
 
+const apllyEffect = function (value) {
+  if (currentEffect) {
+    valueElement.value = value;
+    imgPreview.style.filter = `${currentEffect.effect.filter}(${value}${currentEffect.effect.unit || ''})` ;
+  }
+};
 
 const changeEffect = function (evt) {
   const currentEffectKey = evt.target.id.split('-').pop();
@@ -67,6 +72,7 @@ const changeEffect = function (evt) {
       step: currentEffect.slider.step,
       connect: 'lower'
     });
+    apllyEffect(currentEffect.slider.start);
   } else {
     deleteEffect();
   }
@@ -74,10 +80,7 @@ const changeEffect = function (evt) {
 
 deleteEffect();
 sliderElement.noUiSlider.on('change', (value) => {
-  if (currentEffect) {
-    imgPreview.style.filter = `${currentEffect.effect.filter}(${value[0]}${currentEffect.effect.unit || ''})` ;
-  }
-
+  apllyEffect(value[0]);
 });
 
 effectsList.addEventListener('change', changeEffect);
