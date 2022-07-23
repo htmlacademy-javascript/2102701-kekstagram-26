@@ -5,3 +5,4 @@ import './change-size.js';
 import './filter.js';
 import {loadData} from './api.js';
 loadData();
+import './loaded-img.js';
