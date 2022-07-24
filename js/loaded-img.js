@@ -1,6 +1,7 @@
 import {openForm} from './load-form.js';
 const loadImg = document.querySelector('.img-upload__start input[type=file]');
 const loadImgPreview = document.querySelector('.img-upload__preview img');
+
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 loadImg.addEventListener('change', () => {
