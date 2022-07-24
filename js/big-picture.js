@@ -11,16 +11,40 @@ const clearComments = function () {
   socialComments.innerHTML = '';
 };
 
-const addComments = function (comments) {
+const COMMENTS_ON_PAGE = 5;
+const createComments = function (comments) {
   const commentsFragment = document.createDocumentFragment();
   comments.forEach((comment) => {
     const commentElement = socialComment.cloneNode(true);
     commentElement.querySelector('.social__comment .social__picture').src = comment.avatar;
     commentElement.querySelector('.social__comment .social__picture').alt = comment.name;
-    commentElement.querySelector('.social__comment p').textContent = comment.comment;
+    commentElement.querySelector('.social__text').textContent = comment.message;
     commentsFragment.appendChild(commentElement);
   });
   socialComments.appendChild(commentsFragment);
+};
+
+let showNextPage;
+commentsLoader.addEventListener('click', ()=>{
+  showNextPage();
+});
+
+const addComments = function (comments) {
+  const maxCount = comments.length;
+  const totalPages = Math.ceil(maxCount/COMMENTS_ON_PAGE);
+  let currentPage = 1;
+  showNextPage = function () {
+    createComments(comments.slice(COMMENTS_ON_PAGE*(currentPage-1), COMMENTS_ON_PAGE*currentPage));
+    socialCommentCount.textContent = `${Math.min(maxCount, (currentPage*COMMENTS_ON_PAGE))} из ${maxCount} комментариев`;
+    currentPage++;
+    if (currentPage>totalPages) {
+      commentsLoader.classList.add('hidden');
+    } else {
+      commentsLoader.classList.remove('hidden');
+    }
+  };
+  showNextPage();
+
 };
 
 const {open} = initModal(bigPicture);

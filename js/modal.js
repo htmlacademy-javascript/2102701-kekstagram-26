@@ -8,7 +8,6 @@ const initModal = function (element, {onClose, capture = false, buttonSelector =
     }
   };
   const buttonCLose = element.querySelector(buttonSelector);
-  console.log(buttonCLose, buttonSelector);
   if (buttonCLose) {
     buttonCLose.addEventListener('click', close);
   }

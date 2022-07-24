@@ -25,7 +25,7 @@ const {open, close} = initModal(uploadOverlay, {
   }
 });
 
-inputFile.addEventListener('change', open);
+//inputFile.addEventListener('change', open);
 
 const validateHashTagMessages = [];
 
@@ -90,3 +90,5 @@ const escStopPropagnation= function (evt) {
 
 inputHT.addEventListener('keydown', escStopPropagnation);
 textComment.addEventListener('keydown', escStopPropagnation);
+
+export {open as openForm};
