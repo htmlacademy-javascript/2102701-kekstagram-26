@@ -34,4 +34,5 @@ const showBigPicture = function (description) {
   bigPicture.querySelector('.social__caption').textContent = description.description;
 };
 
+
 export {showBigPicture};
