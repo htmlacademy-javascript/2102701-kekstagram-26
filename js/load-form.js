@@ -1,5 +1,5 @@
 import { deleteEffect } from './filter.js';
-import { showError } from './error.js';
+import {showError} from './error.js';
 import {initModal} from './modal.js';
 import { showSuccess } from './success.js';
 
