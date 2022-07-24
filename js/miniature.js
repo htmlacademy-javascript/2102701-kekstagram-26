@@ -7,6 +7,7 @@ const miniaturesTemplate = document.querySelector('#picture').content.querySelec
 //const similarDescriptionFragment = document.createDocumentFragment();
 
 const renderPhotoList = function (similarDescriptions) {
+  miniaturesContainer.querySelectorAll('.picture').forEach((element)=> {element.remove()});
   const similarDescriptionFragment = document.createDocumentFragment();
   similarDescriptions.forEach((description) => {
     const miniaturesElement = miniaturesTemplate.cloneNode(true);
