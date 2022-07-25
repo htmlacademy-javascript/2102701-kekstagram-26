@@ -1,6 +1,6 @@
 import {renderPhotoList} from './miniature.js';
 import {showAlert} from './alert.js';
-import { shuffle, debounce } from './util.js';
+import {shuffle, debounce} from './util.js';
 
 const imgFilter = document.querySelector('.img-filters');
 const imgFilterForm = document.querySelector('.img-filters__form');
