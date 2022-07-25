@@ -8,7 +8,7 @@ const minValue = 25;
 const imgPreview = document.querySelector('.img-upload__preview');
 
 const changeSize = function () {
-  imgPreview.style.transform = `scale(${scaleValueElement.value})`
+  imgPreview.style.transform = `scale(${scaleValueElement.value})`;
 };
 changeSize();
 scaleElement.addEventListener('click', (evt) => {

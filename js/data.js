@@ -61,3 +61,5 @@ const createPhotoDescription = function (_value, index) {
     comments: Array.from({length: getRandomNumber(1, PHOTO_COMMENT_MAX_COUNT)}, createRandomComment)
   };
 };
+
+export {createPhotoDescription};

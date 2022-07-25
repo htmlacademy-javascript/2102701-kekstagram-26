@@ -34,4 +34,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export {getRandomArrayElement, getRandomNumber, shuffle, debounce};
+export {getRandomArrayElement, getRandomNumber, shuffle, debounce, getStrLength};
