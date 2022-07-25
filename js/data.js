@@ -26,9 +26,6 @@ const NAMES = [
   'Серёжа'
 ];
 
-
-
-
 const PHOTOS_COUNT = 25;
 const PHOTO_COMMENT_MAX_COUNT = 5;
 const urls=Array.from({length: PHOTOS_COUNT}, (i, index)=>index+1);

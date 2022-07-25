@@ -1,16 +1,19 @@
 import {renderPhotoList} from './miniature.js';
-import { showAlert } from './alert.js';
-import { shuffle } from './util.js';
+import {showAlert} from './alert.js';
+import {shuffle, debounce} from './util.js';
 
 const imgFilter = document.querySelector('.img-filters');
 const imgFilterForm = document.querySelector('.img-filters__form');
 const imgFilterButtons = document.querySelectorAll('.img-filters__button');
+
+const RENDERER_DELAY = 500;
+
 const applyImgFilter = function (photos, renderCallback) {
   imgFilter.classList.remove('img-filters--inactive');
 
   renderCallback(photos);
 
-  imgFilterForm.addEventListener('click', (evt) => {
+  imgFilterForm.addEventListener('click', debounce((evt) => {
     if (evt.target.id) {
       const newOrderedPhotos = photos.slice();
       imgFilterButtons.forEach((imgFilterButton)=>{
@@ -35,7 +38,7 @@ const applyImgFilter = function (photos, renderCallback) {
       }
 
     }
-  });
+  }, RENDERER_DELAY));
 };
 
 
