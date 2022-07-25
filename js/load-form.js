@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import {deleteEffect} from './filter.js';
+=======
+import { deleteEffect } from './filter.js';
+>>>>>>> 75a9b186394ed261b3a0ad9d63412cd514f01748
 import {showError} from './error.js';
 import {initModal} from './modal.js';
 import {showSuccess} from './success.js';
