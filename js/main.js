@@ -3,5 +3,9 @@ import './miniature.js';
 import './load-form.js';
 import './change-size.js';
 import './filter.js';
-import {loadData} from './api.js';
-loadData();
+import './loaded-img.js';
+import {loadData, applyImgFilter} from './api.js';
+import {renderPhotoList} from './miniature.js';
+loadData()
+  .then((photos) => {applyImgFilter(photos, (orderedPhotos) => renderPhotoList(orderedPhotos));});
+
