@@ -1,13 +1,10 @@
-//import {getSimilarDescriptions} from './data.js';
 import {showBigPicture} from './big-picture.js';
 
 const miniaturesContainer = document.querySelector('.pictures');
 const miniaturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
-//const similarDescriptions = getSimilarDescriptions();
-//const similarDescriptionFragment = document.createDocumentFragment();
 
 const renderPhotoList = function (similarDescriptions) {
-  miniaturesContainer.querySelectorAll('.picture').forEach((element)=> {element.remove()});
+  miniaturesContainer.querySelectorAll('.picture').forEach((element)=> {element.remove();});
   const similarDescriptionFragment = document.createDocumentFragment();
   similarDescriptions.forEach((description) => {
     const miniaturesElement = miniaturesTemplate.cloneNode(true);
@@ -21,8 +18,6 @@ const renderPhotoList = function (similarDescriptions) {
   });
   miniaturesContainer.appendChild(similarDescriptionFragment);
 };
-
-//miniaturesContainer.appendChild(similarDescriptionFragment);
 
 export {renderPhotoList};
 

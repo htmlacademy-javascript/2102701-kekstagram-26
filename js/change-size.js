@@ -1,5 +1,6 @@
 const scaleElement = document.querySelector('.scale');
 const scaleValueElement = scaleElement.querySelector('.scale__control--value');
+
 const step = 25;
 const maxValue = 100;
 const minValue = 25;
@@ -7,7 +8,7 @@ const minValue = 25;
 const imgPreview = document.querySelector('.img-upload__preview');
 
 const changeSize = function () {
-  imgPreview.style.transform = `scale(${scaleValueElement.value})`
+  imgPreview.style.transform = `scale(${scaleValueElement.value})`;
 };
 changeSize();
 scaleElement.addEventListener('click', (evt) => {

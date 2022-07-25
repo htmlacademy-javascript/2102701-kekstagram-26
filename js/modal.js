@@ -27,5 +27,6 @@ const initModal = function (element, {onClose, capture = false, buttonSelector =
   };
   return {open, close};
 };
+
 export {initModal};
 

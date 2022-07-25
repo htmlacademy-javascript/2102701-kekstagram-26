@@ -1,16 +1,19 @@
-import { deleteEffect } from './filter.js';
+import {deleteEffect} from './filter.js';
 import {showError} from './error.js';
 import {initModal} from './modal.js';
-import { showSuccess } from './success.js';
+import {showSuccess} from './success.js';
 
 const imgUploadForm = document.querySelector('#upload-select-image');
 imgUploadForm.setAttribute('action', 'https://26.javascript.pages.academy/kekstagram');
+
 const uploadOverlay = imgUploadForm.querySelector('.img-upload__overlay');
 const inputFile = imgUploadForm.querySelector('#upload-file');
+
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper'
 });
+
 const inputHT = imgUploadForm.querySelector('.text__hashtags');
 const textComment = document.querySelector('.text__description');
 
@@ -25,8 +28,6 @@ const {open, close} = initModal(uploadOverlay, {
   }
 });
 
-//inputFile.addEventListener('change', open);
-
 const validateHashTagMessages = [];
 
 const validateHashTags = function (value) {
@@ -38,7 +39,7 @@ const validateHashTags = function (value) {
   }
   const usedTags=[];
 
-  tags.forEach((value) => {
+  tags.forEach(() => {
     if (!regexp.test(value)) {
       validateHashTagMessages.push(`тэг ${value} содержит недопустимые символы или длина больше 20 символов`);
     }
