@@ -1,8 +1,8 @@
 const imgPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
-
 const sliderElement = document.querySelector('.effect-level__slider');
 const valueElement = document.querySelector('.effect-level__value');
+
 valueElement.value = 100;
 
 const buttonEffects = document.querySelectorAll('.effects__radio');

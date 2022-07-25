@@ -29,6 +29,7 @@ const NAMES = [
 const PHOTOS_COUNT = 25;
 const PHOTO_COMMENT_MAX_COUNT = 5;
 const urls=Array.from({length: PHOTOS_COUNT}, (i, index)=>index+1);
+
 shuffle(urls);
 
 const usedCommentId = [];
@@ -41,6 +42,7 @@ const getNextCommentId = () => {
   usedCommentId.push(number);
   return number;
 };
+
 const createRandomComment = function () {
   return {
     id: getNextCommentId(),
@@ -59,10 +61,3 @@ const createPhotoDescription = function (_value, index) {
     comments: Array.from({length: getRandomNumber(1, PHOTO_COMMENT_MAX_COUNT)}, createRandomComment)
   };
 };
-
-
-/*const getSimilarDescriptions = function () {
-  return Array.from(({length: PHOTOS_COUNT}), createPhotoDescription);
-};*/
-
-//export {getSimilarDescriptions};

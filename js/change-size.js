@@ -1,5 +1,6 @@
 const scaleElement = document.querySelector('.scale');
 const scaleValueElement = scaleElement.querySelector('.scale__control--value');
+
 const step = 25;
 const maxValue = 100;
 const minValue = 25;

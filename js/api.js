@@ -1,4 +1,3 @@
-import {renderPhotoList} from './miniature.js';
 import {showAlert} from './alert.js';
 import {shuffle, debounce} from './util.js';
 
@@ -46,8 +45,6 @@ const loadData = function () {
   return fetch('https://26.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
     .catch(()=> {showAlert('Данные не загрузились');});
-    //.then((photos) => {renderPhotoList(photos);})
-    //.then(()=>{showImgFilter();});
 };
 
 export {loadData, applyImgFilter};
