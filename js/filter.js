@@ -2,10 +2,9 @@ const imgPreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const sliderElement = document.querySelector('.effect-level__slider');
 const valueElement = document.querySelector('.effect-level__value');
+const buttonEffects = document.querySelectorAll('.effects__radio');
 
 valueElement.value = 100;
-
-const buttonEffects = document.querySelectorAll('.effects__radio');
 
 noUiSlider.create(sliderElement, {
   range: {
@@ -41,6 +40,17 @@ const EFFECTS = {
 };
 
 let currentEffect = 'none';
+let currentClassEffect = null;
+
+const changeClassEffect = function (newClassEffect) {
+  if (currentClassEffect) {
+    imgPreview.classList.remove(currentClassEffect);
+  }
+  if (newClassEffect) {
+    currentClassEffect = newClassEffect;
+    imgPreview.classList.add(currentClassEffect);
+  }
+};
 
 const deleteEffect = function () {
   sliderElement.parentElement.classList.add('hidden');
@@ -49,6 +59,7 @@ const deleteEffect = function () {
   buttonEffects.forEach((buttonEffect, index) => {
     buttonEffect.checked = index === 0;
   });
+  changeClassEffect(null);
 };
 
 const apllyEffect = function (value) {
@@ -61,6 +72,7 @@ const apllyEffect = function (value) {
 const changeEffect = function (evt) {
   const currentEffectKey = evt.target.id.split('-').pop();
   if (currentEffectKey in EFFECTS) {
+    changeClassEffect(`effect--${currentEffectKey}`);
     currentEffect = EFFECTS[currentEffectKey];
     sliderElement.parentElement.classList.remove('hidden');
     sliderElement.noUiSlider.updateOptions({
@@ -79,7 +91,7 @@ const changeEffect = function (evt) {
 };
 
 deleteEffect();
-sliderElement.noUiSlider.on('change', (value) => {
+sliderElement.noUiSlider.on('slide', (value) => {
   apllyEffect(value[0]);
 });
 
