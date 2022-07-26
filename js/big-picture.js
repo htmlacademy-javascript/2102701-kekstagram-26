@@ -6,11 +6,11 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialComments = bigPicture.querySelector('.social__comments');
 const socialComment = bigPicture.querySelector('.social__comment').cloneNode(true);
 
+const COMMENTS_ON_PAGE = 5;
+
 const clearComments = function () {
   socialComments.innerHTML = '';
 };
-
-const COMMENTS_ON_PAGE = 5;
 
 const createComments = function (comments) {
   const commentsFragment = document.createDocumentFragment();

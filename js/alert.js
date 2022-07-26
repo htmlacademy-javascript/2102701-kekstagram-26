@@ -1,5 +1,8 @@
+const SHOW_ALERT_DELAY = 2000;
+
 const showAlert = function (message) {
   const element = document.createElement('div');
+
   element.textContent = message;
   element.style.background = 'red';
   element.style.position = 'fixed';
@@ -12,6 +15,6 @@ const showAlert = function (message) {
   document.body.appendChild(element);
   setTimeout(()=> {
     document.body.removeChild(element);
-  }, 2000);
+  }, SHOW_ALERT_DELAY);
 };
 export {showAlert};

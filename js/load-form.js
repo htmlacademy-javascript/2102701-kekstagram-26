@@ -2,6 +2,7 @@ import {deleteEffect} from './filter.js';
 import {showError} from './error.js';
 import {initModal} from './modal.js';
 import {showSuccess} from './success.js';
+import {resetSize} from './change-size.js';
 
 const imgUploadForm = document.querySelector('#upload-select-image');
 imgUploadForm.setAttribute('action', 'https://26.javascript.pages.academy/kekstagram');
@@ -25,6 +26,7 @@ const {open, close} = initModal(uploadOverlay, {
     inputHT.value = '';
     textComment.value = '';
     deleteEffect();
+    resetSize();
   }
 });
 
@@ -32,21 +34,21 @@ const validateHashTagMessages = [];
 
 const validateHashTags = function (value) {
   validateHashTagMessages.length=0;
-  const tags = value.split(' ');
+  const tags = value.split(' ').filter(Boolean);
   if (tags.length > 5) {
     validateHashTagMessages.push('Тегов слишком много');
     return false;
   }
   const usedTags=[];
 
-  tags.forEach(() => {
-    if (!regexp.test(value)) {
-      validateHashTagMessages.push(`тэг ${value} содержит недопустимые символы или длина больше 20 символов`);
+  tags.forEach((tag) => {
+    if (!regexp.test(tag)) {
+      validateHashTagMessages.push(`тэг ${tag} содержит недопустимые символы или длина больше 20 символов`);
     }
-    if (usedTags.includes(value.toLowerCase())) {
-      validateHashTagMessages.push(`тэг ${value} повторяется`);
+    if (usedTags.includes(tag.toLowerCase())) {
+      validateHashTagMessages.push(`тэг ${tag} повторяется`);
     } else {
-      usedTags.push(value.toLowerCase());
+      usedTags.push(tag.toLowerCase());
     }
   });
   return !validateHashTagMessages.length;
@@ -62,10 +64,27 @@ const validateComments = function (value) {
 pristine.addValidator(inputHT, validateHashTags, showValidatedHashTagsMessages);
 pristine.addValidator(textComment, validateComments, 'Длина комментария не должна быть больше 140 символов');
 
+let isProcessing = false;
+
+const imgUploadSubmit = imgUploadForm.querySelector('.img-upload__submit');
+
+const disableForm = function () {
+  isProcessing = true;
+  imgUploadSubmit.disabled = true;
+  imgUploadSubmit.textContent = 'Подождите...';
+};
+
+const enableForm = function () {
+  isProcessing = false;
+  imgUploadSubmit.disabled = false;
+  imgUploadSubmit.textContent = 'Отправить';
+};
+
 imgUploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  if (pristine.validate()){
+  if (!isProcessing && pristine.validate()){
     const formData = new FormData(evt.target);
+    disableForm();
 
     fetch(
       'https://26.javascript.pages.academy/kekstagram',
@@ -79,11 +98,13 @@ imgUploadForm.addEventListener('submit', (evt) => {
       }
       close();
       showSuccess();
-    }).catch(showError);
+    }).catch(showError).finally(() => {
+      enableForm();
+    });
   }
 });
 
-const escStopPropagnation= function (evt) {
+const escStopPropagnation = function (evt) {
   if (evt.key === 'Escape') {
     evt.stopPropagation();
   }
